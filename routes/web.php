@@ -39,3 +39,4 @@ Route::Delete('/bookings/{bookiing}','BookingController@destroy'); */
 
 Route::resource('bookings', '\App\Http\Controllers\BookingController');
 
+Route::resource('room_types', '\App\Http\Controllers\RoomTypeController');
