@@ -117,14 +117,22 @@ class BookingController extends Controller
             'is_paid'=> $request->input('is_paid',false),
             'notes'=> $request->input('notes'),
     ]); */
-
-    $booking->fill($request->input());
+    $validatedData = $request->validate([
+        'start' => 'required',
+        'end' => 'required',
+        'room_id' => 'required|exists:rooms,id' ,
+        'user_id' => 'required|exists:users,id',
+        'is_paid' => 'nullable',
+        'notes' => 'present',
+        'is_reservation' => 'required',
+    ]);
+    $booking->fill($validatedData);
     $booking->save();
 
     DB::table('bookings_users')
     ->where('booking_id', $booking->id)
     ->update([
-        'user_id' => $request->input('user_id'),
+        'user_id' => $validatedData['user_id'],
     ]);
     
     return redirect()->action('\App\Http\Controllers\BookingController@index');

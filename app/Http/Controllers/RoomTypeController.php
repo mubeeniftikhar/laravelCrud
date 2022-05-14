@@ -14,7 +14,8 @@ class RoomTypeController extends Controller
      */
     public function index()
     {
-        
+        return view('roomTypes.index')->with('roomTypes', RoomType::Paginate());
+
     }
 
     /**
@@ -46,7 +47,6 @@ class RoomTypeController extends Controller
      */
     public function show(RoomType $roomType)
     {
-        //
     }
 
     /**
